@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lloyd Vincent Lucas — Personal Portfolio</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Clean Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #121815;
+            --surface: #1a241f;
+            --surface-hover: #222e28;
+            --surface-border: #2d3b33;
+            
+            /* Matte Green Palette */
+            --accent-green: #4e8a6c;
+            --accent-green-light: #6ba888;
+            --accent-green-dim: rgba(78, 138, 108, 0.15);
+            --gradient-btn: linear-gradient(135deg, #4e8a6c, #3b6d54);
+
+            --text-heading: #e8f0ec;
+            --text-body: #b8c7c0;
+            --text-muted: #82948b;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        .light-mode {
+            --bg: #f2f7f4;
+            --surface: #ffffff;
+            --surface-hover: #fafcfb;
+            --surface-border: #d5e2dc;
+            --accent-green: #3f7358;
+            --accent-green-light: #2e5440;
+            --accent-green-dim: rgba(63, 115, 88, 0.12);
+            --gradient-btn: linear-gradient(135deg, #3f7358, #2e5440);
+            --text-heading: #1c2b22;
+            --text-body: #42574b;
+            --text-muted: #6e8579;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text-body);
+            line-height: 1.6;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        /* Navigation Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(18, 24, 21, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--surface-border);
+            z-index: 100;
+        }
+
+        .light-mode header {
+            background: rgba(242, 247, 244, 0.9);
+        }
+
+        .nav-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--font-code);
+            font-weight: 800;
+            color: var(--text-heading);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .brand span {
+            color: var(--accent-green-light);
+        }
+
+        .menu {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .menu a:hover {
+            color: var(--accent-green-light);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .github-nav-link {
+            color: var(--text-heading);
+            font-size: 1.2rem;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .github-nav-link:hover {
+            color: var(--accent-green-light);
+            transform: scale(1.1);
+        }
+
+        .theme-btn {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            color: var(--text-heading);
+            padding: 0.45rem 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green-light);
+        }
+
+        /* Wrapper Container */
+        .wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        section {
+            margin-bottom: 4.5rem;
+        }
+
+        .section-header {
+            margin-bottom: 1.8rem;
+        }
+
+        .section-label {
+            font-family: var(--font-code);
+            color: var(--accent-green-light);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        h2 {
+            font-size: 1.85rem;
+            color: var(--text-heading);
+            font-weight: 800;
+        }
+
+        /* Generic Card Style */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card:hover {
+            background: var(--surface-hover);
+            transform: translateY(-3px);
+            border-color: var(--accent-green);
+            box-shadow: 0 10px 30px rgba(78, 138, 108, 0.12);
+        }
+
+        /* SECTION 1: HOME PAGE */
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--accent-green-dim);
+            color: var(--accent-green-light);
+            border: 1px solid var(--surface-border);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: var(--font-code);
+            margin-bottom: 1.2rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green-light);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            color: var(--text-heading);
+            line-height: 1.15;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: var(--font-code);
+            color: var(--accent-green-light);
+        }
+
+        .hero-bio {
+            font-size: 1.05rem;
+            margin-bottom: 1.8rem;
+            color: var(--text-body);
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            color: var(--text-heading);
+            padding: 0.7rem 1.35rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .btn-link:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-link.accent {
+            background: var(--gradient-btn);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 15px rgba(78, 138, 108, 0.25);
+        }
+
+        .btn-link.accent:hover {
+            opacity: 0.95;
+            box-shadow: 0 6px 20px rgba(78, 138, 108, 0.4);
+            color: #ffffff;
+        }
+
+        .side-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 14px;
+            padding: 1.6rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .side-card h4 {
+            color: var(--accent-green-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-code);
+        }
+
+        .side-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            font-size: 0.88rem;
+        }
+
+        .side-list li {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px dashed var(--surface-border);
+            padding-bottom: 0.4rem;
+        }
+
+        .side-list span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* SECTION 2: ABOUT ME & EDUCATION */
+        .milestone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+        }
+
+        .milestone-title {
+            font-size: 1.1rem;
+            color: var(--text-heading);
+            font-weight: 700;
+        }
+
+        .tag {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+            background: var(--accent-green-dim);
+            color: var(--accent-green-light);
+            border: 1px solid var(--surface-border);
+        }
+
+        /* SECTION 3: SKILLS */
+        .skills-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.1rem;
+        }
+
+        .skill-box h3 {
+            font-size: 1.05rem;
+            color: var(--text-heading);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .skill-box p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* SECTION 4: PROJECTS */
+        .projects-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .project-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-block h3 {
+            color: var(--text-heading);
+            margin-bottom: 0.4rem;
+            font-size: 1.15rem;
+        }
+
+        .project-block p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags span {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--surface-border);
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            color: var(--text-body);
+        }
+
+        /* SECTION 5: ACHIEVEMENTS */
+        .achievements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        /* SECTION 6: CONTACT ME */
+        .contact-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 0.8rem 1.1rem;
+            background: var(--bg);
+            border: 1px solid var(--surface-border);
+            border-radius: 10px;
+            color: var(--text-heading);
+            font-family: var(--font-main);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: var(--accent-green);
+        }
+
+        .social-link-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--text-heading);
+            text-decoration: none;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            margin-top: 0.6rem;
+            transition: color 0.2s ease;
+            word-break: break-all;
+        }
+
+        .social-link-item:hover {
+            color: var(--accent-green-light);
+        }
+
+        footer {
+            border-top: 1px solid var(--surface-border);
+            padding: 2.5rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-code);
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-green-light);
+        }
+
+        @media (max-width: 768px) {
+            .hero-layout, .contact-box {
+                grid-template-columns: 1fr;
+            }
+            .menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-wrap">
+            <a href="#home" class="brand">lloyd<span>.dev</span></a>
+            <ul class="menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact Me</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://github.com/lloydvincentlucas-lang" target="_blank" rel="noopener noreferrer" class="github-nav-link" aria-label="GitHub Profile">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <button class="theme-btn" id="themeBtn"><i class="fa-solid fa-moon"></i> theme</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        <!-- 1. HOME PAGE SECTION -->
+        <section id="home" class="hero-layout">
+            <div>
+                <div class="status-badge">
+                    <span class="status-dot"></span> 4th Year BSIT Student &bull; Section 4A
+                </div>
+                <h1 class="hero-title">Lloyd Vincent Lucas</h1>
+                <div class="hero-tagline">Aspiring IT Professional & Developer</div>
+                <p class="hero-bio">
+                    Welcome to my personal portfolio! I am an Information Technology student passionate about practicing programming fundamentals, building basic 2D game prototypes, exploring 3D modeling, and creating functional web applications step-by-step.
+                </p>
+                <div class="quick-links">
+                    <a href="https://vercel.com/lloyd-01c2" target="_blank" rel="noopener noreferrer" class="btn-link accent"><i class="fa-solid fa-globe"></i> Live Vercel App</a>
+                    <a href="https://github.com/lloydvincentlucas-lang" target="_blank" rel="noopener noreferrer" class="btn-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+            <div class="side-card">
+                <h4>// Quick Overview</h4>
+                <ul class="side-list">
+                    <li><span>Full Name:</span> <strong>Lloyd Vincent Lucas</strong></li>
+                    <li><span>Course & Section:</span> <strong>BSIT 4th Year - 4A</strong></li>
+                    <li><span>Email:</span> <a href="mailto:lloydvincent.lucas@email.lcup.edu.ph" style="color:var(--accent-green-light); text-decoration:none; word-break:break-all; font-size:0.75rem;"><strong>lloydvincent.lucas@email.lcup.edu.ph</strong></a></li>
+                    <li><span>Vercel App:</span> <a href="https://vercel.com/lloyd-01c2" target="_blank" rel="noopener noreferrer" style="color:var(--accent-green-light); text-decoration:none; word-break:break-all; font-size:0.75rem;"><strong>vercel.com/lloyd-01c2</strong></a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT ME & EDUCATIONAL BACKGROUND SECTION -->
+        <section id="about">
+            <div class="section-header">
+                <div class="section-label">Section 02</div>
+                <h2>About Me & Education</h2>
+            </div>
+            <div class="card">
+                <p style="margin-bottom: 1.2rem;">
+                    I am a 4th-year Bachelor of Science in Information Technology (BSIT) student from Section 4A. I have a strong interest in technology, continuous learning, and exploring fundamental tools in software and web development.
+                </p>
+                <div class="milestone-header">
+                    <div class="milestone-title">Bachelor of Science in Information Technology (BSIT)</div>
+                    <span class="tag">Section 4A</span>
+                </div>
+                <p style="font-size:0.92rem; color: var(--text-muted); margin-top:0.4rem;">
+                    Currently completing core 4th-year IT coursework, database systems management labs, programming logic exercises, and preparing for our upcoming Capstone Project.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. SKILLS SECTION -->
+        <section id="skills">
+            <div class="section-header">
+                <div class="section-label">Section 03</div>
+                <h2>Technical Skills</h2>
+            </div>
+            <div class="skills-wrap">
+                <div class="card skill-box">
+                    <h3><i class="fa-solid fa-gamepad" style="color:var(--accent-green-light);"></i> Godot Engine</h3>
+                    <p>Building simple 2D game mechanics and scene nodes using GDScript.</p>
+                </div>
+                <div class="card skill-box">
+                    <h3><i class="fa-solid fa-code" style="color:var(--accent-green-light);"></i> C# Basics</h3>
+                    <p>Writing console applications, control structures, and array operations.</p>
+                </div>
+                <div class="card skill-box">
+                    <h3><i class="fa-brands fa-html5" style="color:var(--accent-green-light);"></i> HTML5 & CSS3</h3>
+                    <p>Structuring clean webpage layouts, CSS grid/flexbox, and form components.</p>
+                </div>
+                <div class="card skill-box">
+                    <h3><i class="fa-brands fa-android" style="color:var(--accent-green-light);"></i> Android UI / XML</h3>
+                    <p>Configuring layout views and custom XML color resource mappings.</p>
+                </div>
+                <div class="card skill-box">
+                    <h3><i class="fa-solid fa-cube" style="color:var(--accent-green-light);"></i> Blender 3D</h3>
+                    <p>Exploring basic 3D object modeling, materials, and physics simulations.</p>
+                </div>
+                <div class="card skill-box">
+                    <h3><i class="fa-solid fa-database" style="color:var(--accent-green-light);"></i> MySQL Databases</h3>
+                    <p>Executing standard SELECT, INSERT, UPDATE, and JOIN relational queries.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PROJECTS SECTION -->
+        <section id="projects">
+            <div class="section-header">
+                <div class="section-label">Section 04</div>
+                <h2>Completed Projects & Activities</h2>
+            </div>
+            <div class="projects-stack">
+                <div class="card project-block">
+                    <div>
+                        <h3>1. Simple 2D Godot Game</h3>
+                        <p>A starter 2D platformer prototype created to practice GDScript node control, player movement, and scene handling.</p>
+                        <div class="tech-tags">
+                            <span>Godot Engine</span>
+                            <span>GDScript</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/lloydvincentlucas-lang" target="_blank" rel="noopener noreferrer" class="btn-link" style="font-size:0.8rem; padding: 0.45rem 0.85rem;"><i class="fa-brands fa-github"></i> View Repository</a>
+                </div>
+
+                <div class="card project-block">
+                    <div>
+                        <h3>2. Student Grade Calculator</h3>
+                        <p>Console-based CLI program written in C# to compute student quiz marks and output letter grades based on conditional logic.</p>
+                        <div class="tech-tags">
+                            <span>C#</span>
+                            <span>CLI</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/lloydvincentlucas-lang" target="_blank" rel="noopener noreferrer" class="btn-link" style="font-size:0.8rem; padding: 0.45rem 0.85rem;"><i class="fa-brands fa-github"></i> View Repository</a>
+                </div>
+
+                <div class="card project-block">
+                    <div>
+                        <h3>3. Rainbow Buttons Android App</h3>
+                        <p>Android Studio UI project testing XML layout configurations, color resources, and button click listeners.</p>
+                        <div class="tech-tags">
+                            <span>Android Studio</span>
+                            <span>XML</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/lloydvincentlucas-lang" target="_blank" rel="noopener noreferrer" class="btn-link" style="font-size:0.8rem; padding: 0.45rem 0.85rem;"><i class="fa-brands fa-github"></i> View Repository</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ACHIEVEMENTS SECTION -->
+        <section id="achievements">
+            <div class="section-header">
+                <div class="section-label">Section 05</div>
+                <h2>Achievements & Lab Milestones</h2>
+            </div>
+            <div class="achievements-list">
+                <div class="card">
+                    <div class="milestone-header">
+                        <div class="milestone-title">Capstone Project Preparation</div>
+                        <span class="tag">4th Year Academic Milestone</span>
+                    </div>
+                    <p style="font-size:0.9rem; color:var(--text-muted);">
+                        Initiated systems design planning, proposal documentation, and architectural setup for our 4th-year Capstone project requirement.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="milestone-header">
+                        <div class="milestone-title">Android Studio Rainbow Buttons UI Lab[cite: 1]</div>
+                        <span class="tag">Mobile Computing Lab</span>
+                    </div>
+                    <p style="font-size:0.9rem; color:var(--text-muted);">
+                        Successfully built custom XML resource mappings (Red, Orange, Yellow, Green, Blue, Violet)[cite: 1] and tested execution on the Android emulator[cite: 1].
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="milestone-header">
+                        <div class="milestone-title">Blender 3D Physics & Camera Simulation</div>
+                        <span class="tag">3D Graphics Lab</span>
+                    </div>
+                    <p style="font-size:0.9rem; color:var(--text-muted);">
+                        Created and rendered a perspective object collision scene with physics properties and camera views in Blender.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONTACT ME SECTION -->
+        <section id="contact">
+            <div class="section-header">
+                <div class="section-label">Section 06</div>
+                <h2>Contact Me</h2>
+            </div>
+            <div class="card contact-box">
+                <div>
+                    <h3 style="color:var(--text-heading); margin-bottom:0.4rem;">Lloyd Vincent Lucas</h3>
+                    <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">BSIT Student &bull; Section 4A</p>
+                    <p style="font-size:0.9rem; color:var(--text-muted);">
+                        For academic inquiries, student project collaborations, or further details:
+                    </p>
+                    <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.4rem;">
+                        <a href="mailto:lloydvincent.lucas@email.lcup.edu.ph" class="social-link-item">
+                            <i class="fa-solid fa-envelope" style="color:var(--accent-green-light);"></i> lloydvincent.lucas@email.lcup.edu.ph
+                        </a>
+                        <a href="https://github.com/lloydvincentlucas-lang" target="_blank" rel="noopener noreferrer" class="social-link-item">
+                            <i class="fa-brands fa-github" style="color:var(--accent-green-light);"></i> github.com/lloydvincentlucas-lang
+                        </a>
+                        <a href="https://vercel.com/lloyd-01c2" target="_blank" rel="noopener noreferrer" class="social-link-item">
+                            <i class="fa-solid fa-globe" style="color:var(--accent-green-light);"></i> vercel.com/lloyd-01c2
+                        </a>
+                    </div>
+                </div>
+
+                <form onsubmit="event.preventDefault(); window.location.href='mailto:lloydvincent.lucas@email.lcup.edu.ph?subject=Portfolio Inquiry&body=' + encodeURIComponent(document.getElementById('msgBody').value);">
+                    <div class="input-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="msgBody" rows="3" placeholder="Your Message..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-link accent" style="cursor:pointer; width:100%; justify-content:center;">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Lloyd Vincent Lucas &bull; BSIT Section 4A &bull; <a href="https://vercel.com/lloyd-01c2" target="_blank" rel="noopener noreferrer">Vercel</a> &bull; <a href="https://github.com/lloydvincentlucas-lang" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+        </footer>
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeBtn = document.getElementById('themeBtn');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
+    </script>
+</body>
+</html>
